@@ -28,7 +28,7 @@ public class MainApp {
     }
 
     private AWSCredentialsProvider getCredentialsProvider() {
-        if (!awsConfig.awsAccessKeyId.isEmpty() && awsConfig.awsSecretKey.isEmpty()) {
+        if (!awsConfig.awsAccessKeyId.isEmpty() && !awsConfig.awsSecretKey.isEmpty()) {
             log.info("Using AWS Access Key provided");
             return new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsConfig.awsAccessKeyId, awsConfig.awsSecretKey));
         } else {
