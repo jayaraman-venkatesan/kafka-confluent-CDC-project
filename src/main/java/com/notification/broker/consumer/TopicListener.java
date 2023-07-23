@@ -1,5 +1,7 @@
-package br.com.example.broker.consumer;
+package com.notification.broker.consumer;
 
+import com.notification.email.EmailService;
+import com.notification.email.EmailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -15,6 +17,11 @@ public class TopicListener {
 
     @Value("${topic.name.consumer")
     private String topicName;
+    private EmailService emailService;
+
+    TopicListener(EmailServiceImpl emailService){
+    this.emailService = emailService;
+    }
 
     @KafkaListener(topics = "${topic.name.consumer}", groupId = "group_id")
     public void consume(ConsumerRecord<String, String> payload){
@@ -22,6 +29,7 @@ public class TopicListener {
         log.info("Headers: {}", payload.headers());
         log.info("Partion: {}", payload.partition());
         log.info("Order: {}", payload.value());
+        emailService.sendEmail();
     }
 
 }

@@ -59,6 +59,11 @@
             <artifactId>avro-maven-plugin</artifactId>
             <version>1.8.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.postmarkapp</groupId>
+            <artifactId>postmark</artifactId>
+            <version>1.10.21</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
