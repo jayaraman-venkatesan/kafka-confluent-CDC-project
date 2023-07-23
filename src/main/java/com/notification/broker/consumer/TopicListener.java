@@ -1,11 +1,10 @@
 package com.notification.broker.consumer;
 
 import com.notification.email.EmailService;
-import com.notification.email.EmailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TopicListener {
 
-    @Value("${topic.name.consumer")
-    private String topicName;
-    private EmailService emailService;
 
-    TopicListener(EmailServiceImpl emailService){
-    this.emailService = emailService;
-    }
+
+    @Autowired
+    private final EmailService emailService;
 
     @KafkaListener(topics = "${topic.name.consumer}", groupId = "group_id")
     public void consume(ConsumerRecord<String, String> payload){
