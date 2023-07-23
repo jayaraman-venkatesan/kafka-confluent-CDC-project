@@ -1,13 +1,8 @@
 package com.notification.email;
 
-import com.notification.Customer.Customer;
-import com.notification.Customer.CustomerService;
-import com.postmarkapp.postmark.*;
-import com.postmarkapp.postmark.client.*;
-
-import com.postmarkapp.postmark.client.data.model.message.Message;
-import com.postmarkapp.postmark.client.data.model.message.MessageResponse;
-import java.util.List;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.amazonaws.services.simpleemail.model.*;
+import com.notification.model.EmailPayload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +12,25 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService{
-
-
     @Autowired
-    private final CustomerService customerService;
-
+    AmazonSimpleEmailService amazonSimpleEmailService;
 
     @Override
-    public void sendEmail() {
-        List<String> successEmails = customerService.getSuccessSubscribedEmails();
-        List<String> failEmails = customerService.getFailSubscribedEmails();
-        List<String> bothEmails = customerService.getBothSubscribedEmails();
-
-        List<Customer> c = customerService.getAllCustomers();
-
-        ApiClient client = Postmark.getApiClient("cd808a61-ec9a-4baf-b285-70ef351055ef");
-        Message message = new Message("jayvenkat1998@gmail.com", "clvarsha6@gmail.com", "Hello from Jay!", "Hello message from the most annoying person on the planet!");
+    public void sendEmail(EmailPayload emailPayload) {
         try {
-            MessageResponse response = client.deliverMessage(message);
-            log.info(response.getMessage());
-        }
-        catch (Exception e){
+            SendEmailRequest sendEmailRequest = new SendEmailRequest()
+                    .withDestination(
+                            new Destination().withToAddresses(emailPayload.toEmailAddress)
+                    )
+                    .withMessage(
+                            new Message()
+                                    .withBody(new Body().withHtml(new Content().withCharset("UTF-8").withData(emailPayload.body)))
+                                    .withSubject(new Content().withCharset("UTF-8").withData(emailPayload.subject))
+                    )
+                    .withSource(emailPayload.fromEmailAddress);
+
+            amazonSimpleEmailService.sendEmail(sendEmailRequest);
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
     }
