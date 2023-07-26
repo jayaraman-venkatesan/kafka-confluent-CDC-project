@@ -17,14 +17,14 @@ public class CustomerServiceImpl implements CustomerService {
 
   public CustomerServiceImpl() {
     this.customers = new ArrayList<>(Arrays.asList(
-            new Customer("I", "", List.of(SubscribedEventType.Fail)),
-            new Customer("J", "", List.of(SubscribedEventType.Fail)),
+            new Customer("I", "clvarsha1998@gmail.com", List.of(SubscribedEventType.Fail)),
+            new Customer("J", "clvarsha1998@gmail.com", List.of(SubscribedEventType.Fail)),
 
-            new Customer("K", "", List.of(SubscribedEventType.Success)),
-            new Customer("L", "", List.of(SubscribedEventType.Success)),
+            new Customer("K", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success)),
+            new Customer("L", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success)),
 
-            new Customer("M", "", List.of(SubscribedEventType.Success, SubscribedEventType.Fail)),
-            new Customer("N", "", List.of(SubscribedEventType.Success, SubscribedEventType.Fail))
+            new Customer("M", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success, SubscribedEventType.Fail)),
+            new Customer("N", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success, SubscribedEventType.Fail))
 
     ));
   }

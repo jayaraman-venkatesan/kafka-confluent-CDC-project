@@ -8,13 +8,14 @@
         <version>2.4.1</version>
         <relativePath/>
     </parent>
-    <groupId>br.com.example</groupId>
-    <artifactId>demo</artifactId>
+    <groupId>com</groupId>
+    <artifactId>notification</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>notification</name>
     <description>Demo project for Spring Boot with Kafka</description>
     <properties>
         <java.version>11</java.version>
+        <start-class>com.notification.MainApp</start-class>
     </properties>
     <dependencies>
         <dependency>

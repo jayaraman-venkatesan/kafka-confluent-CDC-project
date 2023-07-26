@@ -38,9 +38,7 @@ public class MainApp {
     }
 
     private Regions getAwsRegion() {
-        return !awsConfig.awsRegion.isEmpty() ?
-                Regions.fromName(awsConfig.awsRegion) :
-                Regions.US_EAST_1;
+        return Regions.US_EAST_1;
     }
 
     @Bean
