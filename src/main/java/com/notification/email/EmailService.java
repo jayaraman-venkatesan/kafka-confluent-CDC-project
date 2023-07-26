@@ -1,7 +1,7 @@
 package com.notification.email;
-
 import com.notification.model.EmailPayload;
+import org.springframework.http.ResponseEntity;
 
 public interface EmailService {
-    void sendEmail(EmailPayload emailPayload);
+    ResponseEntity<String> sendEmail(EmailPayload emailPayload);
 }
