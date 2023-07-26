@@ -1,8 +1,10 @@
 package com.notification.broker.consumer;
+import com.google.gson.Gson;
 import com.notification.customer.CustomerService;
 import com.notification.email.EmailService;
 import com.notification.model.Customer;
 import com.notification.model.EmailPayload;
+import com.notification.model.EventData;
 import com.notification.model.SubscribedEventType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +43,11 @@ public class TopicListener {
         log.info("Headers: {}", payload.headers());
         log.info("Partion: {}", payload.partition());
         log.info("Order: {}", payload.value());
+
+        Gson gson = new Gson();
+
+        EventData data = gson.fromJson(payload.value(),EventData.class);
+
         SubscribedEventType eventType = SubscribedEventType.Success;
 
         List<Customer> customers = this.customerService.getSubscribedCustomersBasedOnEventType(eventType);
