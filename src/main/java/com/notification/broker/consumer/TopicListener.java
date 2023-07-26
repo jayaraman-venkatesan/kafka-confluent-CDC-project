@@ -46,9 +46,14 @@ public class TopicListener {
 
         Gson gson = new Gson();
 
-        EventData data = gson.fromJson(payload.value(),EventData.class);
+        EventData eventData = gson.fromJson(payload.value(), EventData.class);
 
-        SubscribedEventType eventType = SubscribedEventType.Success;
+        if (eventData.isDeleted()){
+            log.info("Ignore the event as the row is being deleted");
+            return;
+        }
+
+        SubscribedEventType eventType = SubscribedEventType.fromString(eventData.getStatus());
 
         List<Customer> customers = this.customerService.getSubscribedCustomersBasedOnEventType(eventType);
 
@@ -56,25 +61,23 @@ public class TopicListener {
 
 
             Map<String, Object> variablesMap = Map.ofEntries(
-                    entry("username", "Varsha"),
-                    entry("eventId", "1"),
-                    entry("execution_time",1),
-                    //TODO error not needed for success events
-                    entry("error_code","AX002"),
-                    entry("error_desc","It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."),
-                    entry("event_source_data","Order Placed"),
-                    entry("flow_id","OD1")
+                    entry("username", eventData.getUsername()),
+                    entry("eventId", eventData.getId()),
+                    entry("execution_time",eventData.getExecution_time()),
+                    entry("error_code", eventData.getError_code()),
+                    entry("error_desc",eventData.getError_desc()),
+                    entry("event_source_data",eventData.getEvent_source_data()),
+                    entry("flow_id",eventData.getFlow_id())
             );
 
-//            String emailBody = templateEngine.process("SuccessEvent.html", new Context(Locale.getDefault(), variablesMap));
-            String emailBody = templateEngine.process("FailureEvent.html", new Context(Locale.getDefault(), variablesMap));
+            String emailBody = templateEngine.process(eventType==SubscribedEventType.Success ? "SuccessEvent.html": "FailureEvent.html", new Context(Locale.getDefault(), variablesMap));
             EmailPayload emailPayload = new EmailPayload();
             emailPayload.toEmailAddress = customer.getEmail();
-            // TODO update from email address to be dynamic
-            emailPayload.fromEmailAddress = "Success Event <success-event@gmail.com>";
+            emailPayload.fromEmailAddress = eventType==SubscribedEventType.Success ? "Success Event <success-event@gmail.com>": "Failure Event <failure-event@gmail.com>";
             emailPayload.body = emailBody;
-            emailPayload.subject = "["+"event_source_data"+"] - Event Successfully Processed";
-
+            emailPayload.subject = eventType==SubscribedEventType.Success
+                    ?"Event Successfully Processed | #["+eventData.getId()+"]"
+                    :"Event Processing Failed | #["+eventData.getId()+"]";
             ResponseEntity<String> response = emailService.sendEmail(emailPayload);
             log.info(response.toString());
         }

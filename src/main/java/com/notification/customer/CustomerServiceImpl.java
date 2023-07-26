@@ -17,12 +17,8 @@ public class CustomerServiceImpl implements CustomerService {
 
   public CustomerServiceImpl() {
     this.customers = new ArrayList<>(Arrays.asList(
-            new Customer("Jayaraman Venkatesan", "venkatesan.j@northeastern.edu", List.of(SubscribedEventType.Fail)),
-            new Customer("Varsha C L", "clvarsha1998@gmail.com", List.of(SubscribedEventType.Fail)),
-            new Customer("Vaidehi", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success)),
-            new Customer("Naveen C L", "varshacl@outlook.com", List.of(SubscribedEventType.Success)),
-            new Customer("XYZ", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success, SubscribedEventType.Fail)),
-            new Customer("N", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success, SubscribedEventType.Fail))
+            new Customer("Jayaraman Venkatesan", "venkatesan.j@northeastern.edu", List.of(SubscribedEventType.Success)),
+            new Customer("Leonard", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success, SubscribedEventType.Fail))
 
     ));
   }
