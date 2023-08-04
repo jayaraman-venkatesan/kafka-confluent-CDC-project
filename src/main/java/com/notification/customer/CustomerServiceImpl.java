@@ -16,9 +16,10 @@ public class CustomerServiceImpl implements CustomerService {
   private final List<Customer> customers;
 
   public CustomerServiceImpl() {
+    // creating dummy customers
     this.customers = new ArrayList<>(Arrays.asList(
-            new Customer("Jayaraman Venkatesan", "venkatesan.j@northeastern.edu", List.of(SubscribedEventType.Success)),
-            new Customer("Leonard", "jayvenkat1998@gmail.com", List.of(SubscribedEventType.Success, SubscribedEventType.Fail))
+            new Customer("a", "a@gmail.edu", List.of(SubscribedEventType.Success)),
+            new Customer("b", "b+2@gmail.com", List.of(SubscribedEventType.Success, SubscribedEventType.Fail))
 
     ));
   }

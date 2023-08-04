@@ -24,7 +24,9 @@ public class EmailServiceImpl implements EmailService{
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setBasicAuth("api", "7063a88b6aaf80dcbcad93b56820c79f-c30053db-c5301aa4");
+
+        // ADD YOUR API KEY HERE
+        // headers.setBasicAuth("api", "");
 
         MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
         map.add("from", emailPayload.fromEmailAddress);
@@ -34,7 +36,8 @@ public class EmailServiceImpl implements EmailService{
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity("https://api.mailgun.net/v3/sandbox9e1c781f96f048f291e25b3adf22b94f.mailgun.org/messages",request, String.class);
+        // ADD YOUR SANDBOX MAILGUN URL HERE
+        ResponseEntity<String> response = restTemplate.postForEntity("",request, String.class);
         return response;
     }
 }

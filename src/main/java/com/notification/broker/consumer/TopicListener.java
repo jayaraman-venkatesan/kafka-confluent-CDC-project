@@ -62,7 +62,7 @@ public class TopicListener {
 
             Map<String, Object> variablesMap = Map.ofEntries(
                     entry("username", eventData.getUsername()),
-                    entry("eventId", eventData.getId()),
+                    entry("event_Id", eventData.getId()),
                     entry("execution_time",eventData.getExecution_time()),
                     entry("error_code", eventData.getError_code()),
                     entry("error_desc",eventData.getError_desc()),
