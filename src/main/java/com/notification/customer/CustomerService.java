@@ -6,9 +6,6 @@ import com.notification.model.SubscribedEventType;
 import java.util.List;
 
 public interface CustomerService {
-
-  List<Customer> getAllCustomers();
-
   List<Customer> getSubscribedCustomersBasedOnEventType(SubscribedEventType subscribedEventType);
 
 }

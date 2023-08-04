@@ -29,9 +29,4 @@ public class CustomerServiceImpl implements CustomerService {
             .filter(customer -> customer.getSubscribedEventTypes().contains(subscribedEventType))
             .collect(Collectors.toList());
   }
-
-  @Override
-  public List<Customer> getAllCustomers() {
-    return this.customers;
-  }
 }
