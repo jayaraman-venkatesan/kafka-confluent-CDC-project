@@ -22,7 +22,7 @@ preferences and relevant event attributes.
 ## Proposed Solution
 1. Leverage Change Data Capture (CDC) technology to capture changes from the MySQL database in near 
 real-time without impacting its performance
-2. Utilize an asynchronous message queue to decouple event producers(CDC) and con- sumers, 
+2. Utilize an asynchronous message queue to decouple event producers(CDC) and consumers, 
 ensuring efficient and scalable event processing
 3. Event consumers are designed to categorize events as success or failure based on the queue 
 output.
