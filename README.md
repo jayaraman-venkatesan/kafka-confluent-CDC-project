@@ -1,6 +1,6 @@
 # kafka-confluent-CDC-project
 
-Please refer to software_design_doc pdf in the repo for detailed details.
+Please refer to software_design_doc pdf in the repo for detailed report.
 
 ## Problem
 We need to create an event notification service that sends ̵emails to users about event processing 
